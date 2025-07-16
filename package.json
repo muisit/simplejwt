@@ -1,6 +1,6 @@
 {
   "name": "@muisit/simplejwt",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Implementation to read, create, sign and verify simple JWTs",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
