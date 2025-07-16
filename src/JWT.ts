@@ -73,7 +73,12 @@ export class JWT {
     // if there is a kid in the header, see if it can be resolved
     if (this.header?.kid) {
       const kid = this.header.kid.split("#")[0].trim("=");
-      ckey = await Factory.resolve(kid);
+      try {
+        ckey = await Factory.resolve(kid);
+      }
+      catch (e) {
+        // pass
+      }
     }
 
     // keys can be defined as a JWK entry
@@ -83,12 +88,22 @@ export class JWT {
 
     // the iss claim in the header can be a resolvable did
     if (!ckey && this.header?.iss) {
-      ckey = await Factory.resolve(this.header.iss);
+      try {
+        ckey = await Factory.resolve(this.header.iss);
+      }
+      catch (e) {
+        // pass
+      }
     }
 
     // the iss claim may reside in the payload
     if (!ckey && this.payload?.iss) {
-      ckey = await Factory.resolve(this.payload.iss);
+      try {
+        ckey = await Factory.resolve(this.payload.iss);
+      }
+      catch (e) {
+        // pass
+      }
     }
     return ckey;
   }
